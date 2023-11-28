@@ -3,7 +3,7 @@ import styled from "styled-components";
 export const StyledFooter = styled.footer`
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: space-around;
   flex-wrap: wrap;
   gap: 2rem;
 
@@ -33,6 +33,8 @@ export const StyledFooter = styled.footer`
     max-width: 25rem;
 
     color: whitesmoke;
+
+    font-weight: 500;
   }
 
   @media (max-width: 43.5rem) {

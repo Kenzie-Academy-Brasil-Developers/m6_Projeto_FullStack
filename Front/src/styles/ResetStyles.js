@@ -5,7 +5,7 @@ export const ResetStyles = createGlobalStyle`
     box-sizing: border-box;
     padding: 0;
     margin: 0;
-		font-family: var(--font-family-primary);
+		//font-family: var(--font-family-primary);
   }
 
   html{

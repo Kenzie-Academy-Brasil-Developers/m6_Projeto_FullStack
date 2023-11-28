@@ -1,5 +1,7 @@
 import { Footer } from "./components/Footer/index.jsx";
 import { Header } from "./components/Header/index.jsx";
+import { AuthProvider } from "./providers/AuthProvider.jsx";
+import { RoutesMain } from "./routes/index.jsx";
 import { ResetStyles } from "./styles/ResetStyles.js";
 
 export const App = () => {
@@ -10,9 +12,10 @@ export const App = () => {
       >
         <ResetStyles />
         <Header />
-        <div style={{ flex: 1 }}>
-          <h1>Codigo Limpo</h1>
-        </div>
+        <AuthProvider>
+          <RoutesMain />
+        </AuthProvider>
+        <div style={{ flex: 1 }}></div>
         <Footer />
       </div>
     </>
