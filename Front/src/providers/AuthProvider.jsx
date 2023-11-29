@@ -6,6 +6,7 @@ export const AuthContext = createContext({});
 
 export const AuthProvider = ({ children }) => {
   const [loading, setLoading] = useState(true);
+  const [user, setUser] = useState(null);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -27,7 +28,18 @@ export const AuthProvider = ({ children }) => {
       console.log(response);
 
       api.defaults.headers.common.Authorization = `Bearer ${token}`;
+
+      const getUsersRes = await api.get("/users");
+      console.log(getUsersRes);
+      const loggedUser = getUsersRes.data.filter(
+        (elt) => elt.email === formData.email
+      )[0];
+      console.log(loggedUser);
+
       localStorage.setItem("@UserTOKEN", token);
+      // localStorage.setItem("@USER", JSON.stringify(loggedUser));
+      setUser(loggedUser);
+
       navigate("dashboard");
     } catch (error) {
       console.log(error);
@@ -50,7 +62,7 @@ export const AuthProvider = ({ children }) => {
 
   return (
     <AuthContext.Provider
-      value={{ userLogin, loading, userLogout, userRegister }}
+      value={{ userLogin, loading, userLogout, userRegister, user }}
     >
       {children}
     </AuthContext.Provider>

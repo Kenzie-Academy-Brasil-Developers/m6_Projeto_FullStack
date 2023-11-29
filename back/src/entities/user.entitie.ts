@@ -21,8 +21,8 @@ class User {
   @Column({ length: 120 })
   password: string;
 
-  @Column({ type: "int", width: 11 })
-  phone: number;
+  @Column()
+  phone: string;
 
   @CreateDateColumn({ type: "date" })
   createdAt: string;

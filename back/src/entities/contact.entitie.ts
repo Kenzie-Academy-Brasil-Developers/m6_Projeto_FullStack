@@ -18,8 +18,8 @@ class Contact {
   @Column({ unique: true })
   email: string;
 
-  @Column({ type: "int", width: 11 })
-  phone: number;
+  @Column()
+  phone: string;
 
   @CreateDateColumn({ type: "date" })
   createdAt: string;

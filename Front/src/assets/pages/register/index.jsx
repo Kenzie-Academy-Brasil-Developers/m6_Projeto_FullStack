@@ -13,9 +13,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { registerSchema } from "../dashboard/validator";
 
 export const Register = () => {
-  const { register, handleSubmit, reset } = useForm({
-    resolver: zodResolver(registerSchema),
-  });
+  const { register, handleSubmit, reset } = useForm();
   const { userRegister } = useAuth();
 
   const submitRegister = (formData) => {
@@ -50,7 +48,7 @@ export const Register = () => {
           {...register("password")}
         />
         <Input
-          type="number"
+          type="text"
           label="Telefone"
           id="phone"
           placeholder="Digite o numero do telefone"
