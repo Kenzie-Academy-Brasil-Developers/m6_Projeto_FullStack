@@ -3,21 +3,37 @@ import { Header } from "./components/Header/index.jsx";
 import { AuthProvider } from "./providers/AuthProvider.jsx";
 import { RoutesMain } from "./routes/index.jsx";
 import { ResetStyles } from "./styles/ResetStyles.js";
+import { ThemeProvider } from "styled-components";
+import light from "../src/styles/themes/light";
+import dark from "../src/styles/themes/dark";
+import { useState } from "react";
 
 export const App = () => {
+  const [theme, setTheme] = useState(light);
+
+  const onChangeTheme = () => {
+    setTheme(theme === light ? dark : light);
+  };
+
   return (
     <>
-      <div
-        style={{ display: "flex", flexDirection: "column", minHeight: "100vh" }}
-      >
-        <ResetStyles />
-        <Header />
-        <AuthProvider>
-          <RoutesMain />
-        </AuthProvider>
-        <div style={{ flex: 1 }}></div>
-        <Footer />
-      </div>
+      <ThemeProvider theme={theme}>
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            minHeight: "100vh",
+          }}
+        >
+          <ResetStyles />
+          <Header onChangeTheme={onChangeTheme} theme={theme} />
+          <AuthProvider>
+            <RoutesMain />
+          </AuthProvider>
+          <div style={{ flex: 1 }}></div>
+          <Footer />
+        </div>
+      </ThemeProvider>
     </>
   );
 };

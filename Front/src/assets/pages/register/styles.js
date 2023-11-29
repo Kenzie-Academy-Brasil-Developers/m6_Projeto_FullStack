@@ -6,6 +6,10 @@ export const StyledControllerRegister = styled.main`
   justify-content: center;
   align-items: center;
   margin-top: 5px;
+  p {
+    font-weight: 700;
+    color: #c10228;
+  }
 
   h1 {
     font-size: 1.5rem;
@@ -98,7 +102,8 @@ export const StyledButtonRegister = styled.button`
   width: 160px;
   height: 50px;
 
-  background: #6170e3;
+  background-color: ${(props) => props.theme.colors.primary};
+  //background: #6170e3;
   border: 1px solid #6170e3;
   border-radius: 4px;
 `;

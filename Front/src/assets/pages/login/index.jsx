@@ -9,18 +9,20 @@ import { Input } from "../../../fragments/Input";
 import { Button } from "../../../fragments/Button";
 
 export const Login = () => {
-  const { userLogin } = useAuth();
   const {
     register,
     handleSubmit,
+    reset,
     formState: { errors },
   } = useForm({
     resolver: zodResolver(loginSchema),
   });
+  const { userLogin } = useAuth();
 
   const submitLogin = (formData) => {
     console.log(formData);
     userLogin(formData);
+    reset();
   };
 
   return (

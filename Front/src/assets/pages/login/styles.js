@@ -48,7 +48,8 @@ export const StyledControllerLogin = styled.main`
         width: 325px;
         height: 50px;
 
-        background: #6170e3;
+        //background: #6170e3;
+        background-color: ${(props) => props.theme.colors.primary};
         border: 1px solid #6170e3;
         border-radius: 4px;
       }
@@ -71,5 +72,10 @@ export const StyledControllerLogin = styled.main`
     background: #b0b6eb;
     border: 1px solid #6170e3;
     border-radius: 4px;
+  }
+
+  p {
+    font-weight: 700;
+    color: #c10228;
   }
 `;

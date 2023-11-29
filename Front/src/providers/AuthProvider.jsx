@@ -11,12 +11,16 @@ export const AuthProvider = ({ children }) => {
 
   useEffect(() => {
     const token = localStorage.getItem("@UserTOKEN");
+    const userString = localStorage.getItem("@USER");
+    const user = userString ? JSON.parse(userString) : null;
     if (!token) {
       setLoading(false);
+      //localStorage.removeItem("@USER");
       navigate("");
       return;
     }
     api.defaults.headers.common.Authorization = `Bearer ${token}`;
+    setUser(user);
     navigate("dashboard");
     setLoading(false);
   }, []);
@@ -37,7 +41,7 @@ export const AuthProvider = ({ children }) => {
       console.log(loggedUser);
 
       localStorage.setItem("@UserTOKEN", token);
-      // localStorage.setItem("@USER", JSON.stringify(loggedUser));
+      localStorage.setItem("@USER", JSON.stringify(loggedUser));
       setUser(loggedUser);
 
       navigate("dashboard");
@@ -57,6 +61,7 @@ export const AuthProvider = ({ children }) => {
 
   const userLogout = () => {
     localStorage.removeItem("@UserTOKEN");
+    localStorage.removeItem("@USER");
     navigate("");
   };
 

@@ -9,7 +9,9 @@ export const Footer = () => {
         target="_blank"
         rel="noopener noreferrer"
       >
-        <img src={kenzie} alt="Logo Kenzie" />
+        <button>
+          <img src={kenzie} alt="Logo Kenzie" />
+        </button>
       </a>
       <p>A Escola desenvolvedora de desenvolvedores</p>
     </StyledFooter>

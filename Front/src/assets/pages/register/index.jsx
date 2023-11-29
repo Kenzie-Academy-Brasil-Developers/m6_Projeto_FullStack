@@ -13,12 +13,20 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { registerSchema } from "../dashboard/validator";
 
 export const Register = () => {
-  const { register, handleSubmit, reset } = useForm();
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { errors },
+  } = useForm({
+    resolver: zodResolver(registerSchema),
+  });
   const { userRegister } = useAuth();
 
   const submitRegister = (formData) => {
     userRegister(formData);
     console.log(formData);
+    console.log("Errors:", errors);
     reset();
   };
 
@@ -33,6 +41,7 @@ export const Register = () => {
           placeholder="Digite seu nome completo"
           {...register("full_name")}
         />
+        {errors.full_name ? <p>{errors.full_name.message}</p> : null}
         <Input
           type="email"
           label="E-mail"
@@ -40,6 +49,7 @@ export const Register = () => {
           placeholder="Digite seu e-mail"
           {...register("email")}
         />
+        {errors.email ? <p>{errors.email.message}</p> : null}
         <Input
           type="password"
           label="Senha"
@@ -47,6 +57,15 @@ export const Register = () => {
           placeholder="Digite a senha"
           {...register("password")}
         />
+        {errors.password ? <p>{errors.password.message}</p> : null}
+        <Input
+          type="password"
+          label="Confirme Senha"
+          id="password"
+          placeholder="Confirme a senha"
+          {...register("confirm")}
+        />
+        {errors.password ? <p>{errors.password.message}</p> : null}
         <Input
           type="text"
           label="Telefone"
@@ -54,6 +73,7 @@ export const Register = () => {
           placeholder="Digite o numero do telefone"
           {...register("phone")}
         />
+        {errors.phone ? <p>{errors.phone.message}</p> : null}
 
         <StyledButtonContainerRegister>
           <Link to="/">
