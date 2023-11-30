@@ -7,7 +7,7 @@ export const StyledControllerRegister = styled.main`
   align-items: center;
   margin-top: 5px;
   p {
-    font-weight: 700;
+    font-weight: 400;
     color: #c10228;
   }
 
@@ -33,7 +33,6 @@ export const StyledControllerRegister = styled.main`
       border: 2px solid ${(props) => props.theme.colors.primary};
       border-radius: 4px;
 
-      color: whitesmoke;
       font-weight: 400;
       font-size: 15px;
     }
