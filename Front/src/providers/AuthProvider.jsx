@@ -15,7 +15,7 @@ export const AuthProvider = ({ children }) => {
     const user = userString ? JSON.parse(userString) : null;
     if (!token) {
       setLoading(false);
-      //localStorage.removeItem("@USER");
+      localStorage.removeItem("@USER");
       navigate("");
       return;
     }

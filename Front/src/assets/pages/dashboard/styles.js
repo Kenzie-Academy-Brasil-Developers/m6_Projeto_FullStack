@@ -4,7 +4,9 @@ export const DashboardHeader = styled.header`
   border: #b0b6eb 3px solid;
   //background-color: #6170e3;
   background-color: ${(props) => props.theme.colors.primary};
-  justify-content: space-around;
+  justify-content: space-between;
+  padding-left: 2%;
+  padding-right: 2%;
   color: aliceblue;
   display: flex;
   align-items: center;
@@ -13,12 +15,21 @@ export const DashboardHeader = styled.header`
 `;
 
 export const UpdateButton = styled.button`
-  width: 100px;
-  height: 25px;
-  color: whitesmoke;
-  background: #f3ad44;
-  border-radius: 4px;
+  color: orange;
+  font-size: 20px;
   font-weight: 700;
+`;
+
+export const DeleteUserButton = styled.button`
+  color: red;
+  font-size: 25px;
+  font-weight: 700;
+`;
+
+export const ButtonContainerUser = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 50px;
 `;
 
 export const ExitButton = styled.button`
@@ -33,7 +44,6 @@ export const ExitButton = styled.button`
 export const User = styled.div`
   display: flex;
   align-items: center;
-  justify-content: center;
 `;
 
 export const UserContact = styled.div`
@@ -85,16 +95,41 @@ export const ContactList = styled.ul`
   }
 `;
 
+export const ContactName = styled.div`
+  display: flex;
+`;
+
+export const ContactEmail = styled.div`
+  display: flex;
+  span {
+    color: blue;
+    a {
+      :hover {
+        font-size: 20px;
+      }
+    }
+  }
+`;
+
+export const ContactPhone = styled.div`
+  display: flex;
+
+  span {
+    color: green;
+    a {
+      :hover {
+        font-size: 20px;
+      }
+    }
+  }
+`;
+
+export const ContactCreated = styled.div``;
+
 export const ContactContainer = styled.div`
   display: flex;
   flex-direction: column;
   padding: 5px;
-  a {
-    :hover {
-      color: green;
-      font-size: 20px;
-    }
-  }
 `;
 
 export const ButtonContainer = styled.div`
@@ -105,16 +140,16 @@ export const ButtonContainer = styled.div`
 
 export const UpdateButtonContact = styled.button`
   font-size: 17px;
+  color: orange;
   :hover {
     font-size: 25px;
-    color: orange;
   }
 `;
 
 export const DeleteButtonContact = styled.button`
-  font-size: 17px;
+  font-size: 22px;
+  color: red;
   :hover {
     font-size: 25px;
-    color: red;
   }
 `;

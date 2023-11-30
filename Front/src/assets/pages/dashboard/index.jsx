@@ -18,25 +18,31 @@ import {
   ContactContainer,
   UpdateButtonContact,
   DeleteButtonContact,
+  DeleteUserButton,
+  ButtonContainerUser,
+  ContactName,
+  ContactEmail,
+  ContactPhone,
+  ContactCreated,
 } from "./styles";
 import { api } from "../../../services/api";
+import { useContact } from "../../../hooks/useContact";
 
 export const Dashboard = () => {
   const { userLogout, user } = useAuth();
+  const { deleteContact } = useContact();
   const [contacts, setContacts] = useState([]);
 
   useEffect(() => {
     (async () => {
       const response = await api.get("/contacts");
-
       setContacts(response.data);
     })();
-  }, []);
+  }, [contacts]);
 
   return (
     <>
       <DashboardHeader>
-        <UpdateButton>Atualizar</UpdateButton>
         <div>
           <User>
             <h5> Usuário:</h5>
@@ -49,6 +55,14 @@ export const Dashboard = () => {
             <span>{user && user.phone}</span>
           </UserContact>
         </div>
+        <ButtonContainerUser>
+          <UpdateButton>
+            <GrDocumentUpdate />
+          </UpdateButton>
+          <DeleteUserButton>
+            <MdDeleteForever />
+          </DeleteUserButton>
+        </ButtonContainerUser>
         <ExitButton onClick={() => userLogout()}>Sair</ExitButton>
       </DashboardHeader>
       <section>
@@ -64,35 +78,43 @@ export const Dashboard = () => {
           {contacts.map((contact) => (
             <li key={contact.id}>
               <ContactContainer>
-                <p>
-                  <IoMdPerson /> {contact.full_name}
-                </p>
-                <p>
-                  <MdEmail />
-                  <a href={`mailto:${contact.email}`}>{contact.email}</a>
-                </p>
-                <p>
-                  <a
-                    className="phone-link"
-                    href={`https://api.whatsapp.com/send?phone=${encodeURIComponent(
-                      contact.phone
-                    )}`}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    <FaSquarePhone />
-                  </a>
-                  {contact.phone}
-                </p>
-
-                <p>{contact.createdAt}</p>
+                <ContactName>
+                  <p>
+                    <IoMdPerson />
+                  </p>
+                  <span>{contact.full_name}</span>
+                </ContactName>
+                <ContactEmail>
+                  <span>
+                    <a href={`mailto:${contact.email}`}>
+                      <MdEmail />
+                    </a>
+                  </span>
+                  <p>{contact.email}</p>
+                </ContactEmail>
+                <ContactPhone>
+                  <span>
+                    <a
+                      className="phone-link"
+                      href={`https://api.whatsapp.com/send?phone=${encodeURIComponent(
+                        contact.phone
+                      )}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      <FaSquarePhone />
+                    </a>
+                  </span>
+                  <p>{contact.phone}</p>
+                </ContactPhone>
+                <ContactCreated>{contact.createdAt}</ContactCreated>
               </ContactContainer>
 
               <ButtonContainer>
                 <UpdateButtonContact>
                   <GrDocumentUpdate />
                 </UpdateButtonContact>
-                <DeleteButtonContact>
+                <DeleteButtonContact onClick={() => deleteContact(contact.id)}>
                   <MdDeleteForever />
                 </DeleteButtonContact>
               </ButtonContainer>

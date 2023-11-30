@@ -25,17 +25,17 @@ export const StyledControllerRegister = styled.main`
       flex-direction: column;
       gap: 5px;
 
-      width: 325px;
-      height: 50px;
+      width: 250px;
+      height: 40px;
       padding-left: 20px;
 
-      background: #b0b6eb;
-      border: 3px solid #6170e3;
+      //background: #b0b6eb;
+      border: 2px solid ${(props) => props.theme.colors.primary};
       border-radius: 4px;
 
       color: whitesmoke;
-      font-weight: 700;
-      font-size: 16px;
+      font-weight: 400;
+      font-size: 15px;
     }
 
     label {
@@ -86,10 +86,11 @@ export const StyledButtonBack = styled.button`
   font-weight: 700;
   font-size: 1rem;
 
-  width: 160px;
-  height: 50px;
+  width: 120px;
+  height: 40px;
 
-  background: #b0b6eb;
+  //background: #b0b6eb;
+  background-color: ${(props) => props.theme.colors.primary};
   border: 1px solid #6170e3;
   border-radius: 4px;
 `;
@@ -99,8 +100,8 @@ export const StyledButtonRegister = styled.button`
   font-weight: 700;
   font-size: 1rem;
 
-  width: 160px;
-  height: 50px;
+  width: 120px;
+  height: 40px;
 
   background-color: ${(props) => props.theme.colors.primary};
   //background: #6170e3;

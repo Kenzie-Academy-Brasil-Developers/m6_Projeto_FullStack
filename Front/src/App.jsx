@@ -7,6 +7,7 @@ import { ThemeProvider } from "styled-components";
 import light from "../src/styles/themes/light";
 import dark from "../src/styles/themes/dark";
 import { useState } from "react";
+import { ContactProvider } from "./providers/ContactProvider.jsx";
 
 export const App = () => {
   const [theme, setTheme] = useState(light);
@@ -28,7 +29,9 @@ export const App = () => {
           <ResetStyles />
           <Header onChangeTheme={onChangeTheme} theme={theme} />
           <AuthProvider>
-            <RoutesMain />
+            <ContactProvider>
+              <RoutesMain />
+            </ContactProvider>
           </AuthProvider>
           <div style={{ flex: 1 }}></div>
           <Footer />

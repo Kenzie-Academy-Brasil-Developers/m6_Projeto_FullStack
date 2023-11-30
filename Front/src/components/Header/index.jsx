@@ -36,7 +36,7 @@ export const Header = ({ onChangeTheme, theme }) => {
           offColor={theme.colors.secondary}
           onColor={theme.colors.secondary}
         />
-        <p>
+        <h6>
           by{" "}
           <a
             href="https://www.linkedin.com/in/wilson-alves-franchi-dos-santos-b3ba3332/"
@@ -45,7 +45,7 @@ export const Header = ({ onChangeTheme, theme }) => {
           >
             Wilson
           </a>
-        </p>
+        </h6>
       </div>
     </StyledHeader>
   );

@@ -27,6 +27,14 @@ export const StyledHeader = styled.header`
     font-weight: 500;
   }
 
+  h6 {
+    color: white;
+    :hover {
+      font-size: 20px;
+      color: green;
+    }
+  }
+
   div {
     display: flex;
     align-items: center;

@@ -5,7 +5,7 @@ export const StyledControllerLogin = styled.main`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  margin-top: 5%;
+  margin-top: 2%;
 
   h1 {
     font-size: 1.5rem;
@@ -13,6 +13,7 @@ export const StyledControllerLogin = styled.main`
 
   div {
     form {
+      margin-bottom: 2px;
       display: flex;
       flex-direction: column;
       gap: 5px;
@@ -22,17 +23,15 @@ export const StyledControllerLogin = styled.main`
         flex-direction: column;
         gap: 5px;
 
-        width: 325px;
-        height: 50px;
+        width: 250px;
+        height: 40px;
         padding-left: 20px;
 
-        background: #b0b6eb;
-        border: 3px solid #6170e3;
+        border: 2px solid ${(props) => props.theme.colors.primary};
         border-radius: 4px;
 
-        color: whitesmoke;
-        font-weight: 700;
-        font-size: 16px;
+        font-weight: 400;
+        font-size: 15px;
       }
 
       label {
@@ -41,16 +40,15 @@ export const StyledControllerLogin = styled.main`
       }
 
       button {
+        margin-top: 5px;
         color: whitesmoke;
         font-weight: 700;
         font-size: 1rem;
 
-        width: 325px;
-        height: 50px;
+        width: 250px;
+        height: 40px;
 
-        //background: #6170e3;
         background-color: ${(props) => props.theme.colors.primary};
-        border: 1px solid #6170e3;
         border-radius: 4px;
       }
     }
@@ -66,11 +64,10 @@ export const StyledControllerLogin = styled.main`
     font-weight: 700;
     font-size: 1rem;
 
-    width: 325px;
-    height: 50px;
+    width: 250px;
+    height: 40px;
 
-    background: #b0b6eb;
-    border: 1px solid #6170e3;
+    background-color: ${(props) => props.theme.colors.primary};
     border-radius: 4px;
   }
 
@@ -79,3 +76,15 @@ export const StyledControllerLogin = styled.main`
     color: #c10228;
   }
 `;
+
+function getBackgroundColor(primaryColor) {
+  switch (primaryColor) {
+    case "#3498db": // Azul
+      return "green"; // Cor de fundo para azul
+    case "#000000": // Preto
+      return "yellow"; // Cor de fundo para preto
+    // Adicione outros casos conforme necessário
+    default:
+      return "transparent"; // Cor de fundo padrão
+  }
+}
