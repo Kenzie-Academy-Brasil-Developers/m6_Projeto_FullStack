@@ -1,7 +1,4 @@
 import { useEffect, useState } from "react";
-import { IoMdPerson } from "react-icons/io";
-import { MdEmail } from "react-icons/md";
-import { FaSquarePhone } from "react-icons/fa6";
 import { GrDocumentUpdate } from "react-icons/gr";
 import { MdDeleteForever } from "react-icons/md";
 import { IoMdPersonAdd } from "react-icons/io";
@@ -14,16 +11,8 @@ import {
   ExitButton,
   Title,
   ContactList,
-  ButtonContainer,
-  ContactContainer,
-  UpdateButtonContact,
-  DeleteButtonContact,
   DeleteUserButton,
   ButtonContainerUser,
-  ContactName,
-  ContactEmail,
-  ContactPhone,
-  ContactCreated,
 } from "./styles";
 import { api } from "../../../services/api";
 import { useContact } from "../../../hooks/useContact";
@@ -32,7 +21,8 @@ import { ModalAddContact } from "../../../components/ModalAddContact";
 import { Contacts } from "./Contacts";
 
 export const Dashboard = () => {
-  const { userLogout, user } = useAuth();
+  const { userLogout, user, userDelete } = useAuth();
+  const { setContactList, deleteContact } = useContact();
   const [isOpenModalAddContact, setIsOpenModalAddContact] = useState(false);
   const [isOpenModalUpdateUser, setIsOpenModalUpdateUser] = useState(false);
 
@@ -41,6 +31,18 @@ export const Dashboard = () => {
 
   const toggleModalAddContact = () =>
     setIsOpenModalAddContact(!isOpenModalAddContact);
+
+  useEffect(() => {
+    (async () => {
+      const response = await api.get("/contacts");
+      setContactList(response.data);
+    })();
+  }, []);
+
+  const handleDelete = async (userId) => {
+    await userDelete(userId);
+    console.log("User deleted");
+  };
 
   return (
     <>
@@ -61,7 +63,7 @@ export const Dashboard = () => {
           <UpdateButton onClick={toggleModalUpdateUser}>
             <GrDocumentUpdate />
           </UpdateButton>
-          <DeleteUserButton>
+          <DeleteUserButton onClick={() => handleDelete(user.id)}>
             <MdDeleteForever />
           </DeleteUserButton>
         </ButtonContainerUser>
@@ -77,7 +79,7 @@ export const Dashboard = () => {
         </Title>
 
         <ContactList>
-          <Contacts />
+          <Contacts onDeleteContact={deleteContact} />
         </ContactList>
 
         {isOpenModalAddContact && (

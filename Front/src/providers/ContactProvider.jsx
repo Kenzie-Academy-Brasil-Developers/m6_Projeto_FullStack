@@ -7,24 +7,6 @@ export const ContactProvider = ({ children }) => {
   const [contactList, setContactList] = useState([]);
   const [contactId, setContactId] = useState(null);
 
-  const token = localStorage.getItem("@UserTOKEN");
-
-  useEffect(() => {
-    const loadContact = async () => {
-      try {
-        const response = await api.get("/contacts", {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        });
-        setContactList(response.data);
-      } catch (error) {
-        console.log("Algo deu errado");
-      }
-    };
-    loadContact();
-  }, []);
-
   const createContact = async (formData) => {
     try {
       const response = await api.post("/contacts", formData);
@@ -48,12 +30,7 @@ export const ContactProvider = ({ children }) => {
 
   const updateContact = async (id, updatedData) => {
     try {
-      const response = await api.patch(`contacts/${id}`, updatedData, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
-
+      const response = await api.patch(`contacts/${id}`, updatedData);
       setContactList((prevContactList) =>
         prevContactList.map((contact) =>
           contact.id === id ? response.data : contact
@@ -63,7 +40,7 @@ export const ContactProvider = ({ children }) => {
 
       console.log(`Contact with ID ${id} updated successfully`);
     } catch (error) {
-      console.error("Error updating contact:", error);
+      console.error("Erro ao atualizar contato:", error);
     }
   };
 

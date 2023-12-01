@@ -65,9 +65,33 @@ export const AuthProvider = ({ children }) => {
     navigate("");
   };
 
+  const userDelete = async (id) => {
+    try {
+      const token = localStorage.getItem("@UserTOKEN");
+
+      if (!token) {
+        console.error("Token não encontrado. Usuário não autenticado.");
+        return;
+      }
+
+      await api.delete(`/users/${id}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      localStorage.removeItem("@UserTOKEN");
+      localStorage.removeItem("@USER");
+
+      navigate("");
+    } catch (error) {
+      console.error("Erro ao excluir o usuário:", error);
+    }
+  };
+
   return (
     <AuthContext.Provider
-      value={{ userLogin, loading, userLogout, userRegister, user }}
+      value={{ userLogin, loading, userLogout, userRegister, user, userDelete }}
     >
       {children}
     </AuthContext.Provider>

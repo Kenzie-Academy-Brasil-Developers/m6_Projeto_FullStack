@@ -4,7 +4,7 @@ import { MdEmail } from "react-icons/md";
 import { FaSquarePhone } from "react-icons/fa6";
 import { GrDocumentUpdate } from "react-icons/gr";
 import { MdDeleteForever } from "react-icons/md";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 import {
   ContactContainer,
@@ -16,11 +16,10 @@ import {
   UpdateButtonContact,
   DeleteButtonContact,
 } from "../styles";
-import { Modal } from "../../../../components/Modal";
 import { ModalUpdateContact } from "../../../../components/ModalUpdateContact";
 
 export const Contacts = () => {
-  const { deleteContact, contactList, setContactList } = useContact();
+  const { deleteContact, contactList } = useContact();
   const [selectedContactId, setSelectedContactId] = useState(null);
   const [isOpenModalUpdateContact, setIsOpenModalUpdateContact] =
     useState(false);
@@ -69,7 +68,7 @@ export const Contacts = () => {
               </span>
               <p>{contact.phone}</p>
             </ContactPhone>
-            <ContactCreated>{contact.createdAt}</ContactCreated>
+            {/* <ContactCreated>{contact.createdAt}</ContactCreated> */}
           </ContactContainer>
 
           <ButtonContainer>
@@ -87,7 +86,7 @@ export const Contacts = () => {
       {isOpenModalUpdateContact && selectedContactId && (
         <ModalUpdateContact
           toggleModal={() => toggleModalUpdateContact(null)}
-          contactId={selectedContactId} // Passa o contactId para o ModalUpdateContact
+          contactId={selectedContactId}
         />
       )}
     </>
