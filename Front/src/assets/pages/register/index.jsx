@@ -42,7 +42,7 @@ export const Register = () => {
           {...register("full_name")}
           error={errors.full_name}
         />
-        {/* {errors.full_name ? <p>{errors.full_name.message}</p> : null} */}
+
         <Input
           type="email"
           label="E-mail"
@@ -51,7 +51,7 @@ export const Register = () => {
           {...register("email")}
           error={errors.email}
         />
-        {/* {errors.email ? <p>{errors.email.message}</p> : null} */}
+
         <Input
           type="password"
           label="Senha"
@@ -60,7 +60,7 @@ export const Register = () => {
           {...register("password")}
           error={errors.password}
         />
-        {/* {errors.password ? <p>{errors.password.message}</p> : null} */}
+
         <Input
           type="password"
           label="Confirme Senha"
@@ -69,7 +69,7 @@ export const Register = () => {
           {...register("confirm")}
           error={errors.confirm}
         />
-        {/* {errors.password ? <p>{errors.password.message}</p> : null} */}
+
         <Input
           type="text"
           label="Telefone"
@@ -78,7 +78,6 @@ export const Register = () => {
           {...register("phone")}
           error={errors.phone}
         />
-        {/* {errors.phone ? <p>{errors.phone.message}</p> : null} */}
 
         <StyledButtonContainerRegister>
           <Link to="/">

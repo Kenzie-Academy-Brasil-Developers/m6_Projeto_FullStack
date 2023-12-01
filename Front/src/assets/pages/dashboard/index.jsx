@@ -27,18 +27,30 @@ import {
 } from "./styles";
 import { api } from "../../../services/api";
 import { useContact } from "../../../hooks/useContact";
+import { Modal } from "../../../components/Modal";
+import { ModalAddContact } from "../../../components/ModalAddContact";
 
 export const Dashboard = () => {
   const { userLogout, user } = useAuth();
-  const { deleteContact } = useContact();
-  const [contacts, setContacts] = useState([]);
+  const { deleteContact, contactList, setContactList } = useContact();
+  const [isOpenModalUpdateContact, setIsOpenModalUpdateContact] =
+    useState(false);
+  const [isOpenModalAddContact, setIsOpenModalAddContact] = useState(false);
+  const [isOpenModalUpdateUser, setIsOpenModalUpdateUser] = useState(false);
 
-  useEffect(() => {
-    (async () => {
-      const response = await api.get("/contacts");
-      setContacts(response.data);
-    })();
-  }, [contacts]);
+  const toggleModalUpdateUser = () =>
+    setIsOpenModalUpdateUser(!isOpenModalUpdateUser);
+
+  const toggleModalAddContact = () =>
+    setIsOpenModalAddContact(!isOpenModalAddContact);
+
+  const toggleModalUpdateContact = () =>
+    setIsOpenModalUpdateContact(!isOpenModalUpdateContact);
+
+  const handleDelete = async (contactId) => {
+    await deleteContact(contactId);
+    console.log("Contact deleted");
+  };
 
   return (
     <>
@@ -56,7 +68,7 @@ export const Dashboard = () => {
           </UserContact>
         </div>
         <ButtonContainerUser>
-          <UpdateButton>
+          <UpdateButton onClick={toggleModalUpdateUser}>
             <GrDocumentUpdate />
           </UpdateButton>
           <DeleteUserButton>
@@ -68,14 +80,14 @@ export const Dashboard = () => {
       <section>
         <Title>
           <h1> Meus Contatos</h1>
-          <button>
+          <button onClick={toggleModalAddContact}>
             Adicionar
             <IoMdPersonAdd />
           </button>
         </Title>
 
         <ContactList>
-          {contacts.map((contact) => (
+          {contactList.map((contact) => (
             <li key={contact.id}>
               <ContactContainer>
                 <ContactName>
@@ -111,16 +123,26 @@ export const Dashboard = () => {
               </ContactContainer>
 
               <ButtonContainer>
-                <UpdateButtonContact>
+                <UpdateButtonContact onClick={toggleModalUpdateContact}>
                   <GrDocumentUpdate />
                 </UpdateButtonContact>
-                <DeleteButtonContact onClick={() => deleteContact(contact.id)}>
+                <DeleteButtonContact onClick={() => handleDelete(contact.id)}>
                   <MdDeleteForever />
                 </DeleteButtonContact>
               </ButtonContainer>
             </li>
           ))}
         </ContactList>
+
+        {isOpenModalAddContact && (
+          <ModalAddContact toggleModal={toggleModalAddContact} />
+        )}
+        {isOpenModalUpdateContact && (
+          <Modal toggleModal={toggleModalUpdateContact}>Update Contact</Modal>
+        )}
+        {isOpenModalUpdateUser && (
+          <Modal toggleModal={toggleModalUpdateUser}>Update User</Modal>
+        )}
       </section>
     </>
   );
