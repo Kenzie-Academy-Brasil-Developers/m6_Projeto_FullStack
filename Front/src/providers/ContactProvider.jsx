@@ -5,20 +5,18 @@ export const ContactContext = createContext({});
 
 export const ContactProvider = ({ children }) => {
   const [contactList, setContactList] = useState([]);
+  const [contactId, setContactId] = useState(null);
 
-  // useEffect(() => {
-  //   try { }
-  //   const loadContact = async () => {
-  //     const response = await api.get("/contacts");
-  //     setContactList(response.data);
-  //   };
-  //   loadContact();
-  // }, []);
+  const token = localStorage.getItem("@UserTOKEN");
 
   useEffect(() => {
     const loadContact = async () => {
       try {
-        const response = await api.get("/contacts");
+        const response = await api.get("/contacts", {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
         setContactList(response.data);
       } catch (error) {
         console.log("Algo deu errado");
@@ -48,9 +46,37 @@ export const ContactProvider = ({ children }) => {
     }
   };
 
+  const updateContact = async (id, updatedData) => {
+    try {
+      const response = await api.patch(`contacts/${id}`, updatedData, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      setContactList((prevContactList) =>
+        prevContactList.map((contact) =>
+          contact.id === id ? response.data : contact
+        )
+      );
+      setContactId(id);
+
+      console.log(`Contact with ID ${id} updated successfully`);
+    } catch (error) {
+      console.error("Error updating contact:", error);
+    }
+  };
+
   return (
     <ContactContext.Provider
-      value={{ deleteContact, contactList, createContact, setContactList }}
+      value={{
+        deleteContact,
+        contactList,
+        createContact,
+        setContactList,
+        updateContact,
+        contactId,
+      }}
     >
       {children}
     </ContactContext.Provider>

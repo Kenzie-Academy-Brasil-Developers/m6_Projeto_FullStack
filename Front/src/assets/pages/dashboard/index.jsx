@@ -29,12 +29,10 @@ import { api } from "../../../services/api";
 import { useContact } from "../../../hooks/useContact";
 import { Modal } from "../../../components/Modal";
 import { ModalAddContact } from "../../../components/ModalAddContact";
+import { Contacts } from "./Contacts";
 
 export const Dashboard = () => {
   const { userLogout, user } = useAuth();
-  const { deleteContact, contactList, setContactList } = useContact();
-  const [isOpenModalUpdateContact, setIsOpenModalUpdateContact] =
-    useState(false);
   const [isOpenModalAddContact, setIsOpenModalAddContact] = useState(false);
   const [isOpenModalUpdateUser, setIsOpenModalUpdateUser] = useState(false);
 
@@ -43,14 +41,6 @@ export const Dashboard = () => {
 
   const toggleModalAddContact = () =>
     setIsOpenModalAddContact(!isOpenModalAddContact);
-
-  const toggleModalUpdateContact = () =>
-    setIsOpenModalUpdateContact(!isOpenModalUpdateContact);
-
-  const handleDelete = async (contactId) => {
-    await deleteContact(contactId);
-    console.log("Contact deleted");
-  };
 
   return (
     <>
@@ -87,59 +77,13 @@ export const Dashboard = () => {
         </Title>
 
         <ContactList>
-          {contactList.map((contact) => (
-            <li key={contact.id}>
-              <ContactContainer>
-                <ContactName>
-                  <p>
-                    <IoMdPerson />
-                  </p>
-                  <span>{contact.full_name}</span>
-                </ContactName>
-                <ContactEmail>
-                  <span>
-                    <a href={`mailto:${contact.email}`}>
-                      <MdEmail />
-                    </a>
-                  </span>
-                  <p>{contact.email}</p>
-                </ContactEmail>
-                <ContactPhone>
-                  <span>
-                    <a
-                      className="phone-link"
-                      href={`https://api.whatsapp.com/send?phone=${encodeURIComponent(
-                        contact.phone
-                      )}`}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      <FaSquarePhone />
-                    </a>
-                  </span>
-                  <p>{contact.phone}</p>
-                </ContactPhone>
-                <ContactCreated>{contact.createdAt}</ContactCreated>
-              </ContactContainer>
-
-              <ButtonContainer>
-                <UpdateButtonContact onClick={toggleModalUpdateContact}>
-                  <GrDocumentUpdate />
-                </UpdateButtonContact>
-                <DeleteButtonContact onClick={() => handleDelete(contact.id)}>
-                  <MdDeleteForever />
-                </DeleteButtonContact>
-              </ButtonContainer>
-            </li>
-          ))}
+          <Contacts />
         </ContactList>
 
         {isOpenModalAddContact && (
           <ModalAddContact toggleModal={toggleModalAddContact} />
         )}
-        {isOpenModalUpdateContact && (
-          <Modal toggleModal={toggleModalUpdateContact}>Update Contact</Modal>
-        )}
+
         {isOpenModalUpdateUser && (
           <Modal toggleModal={toggleModalUpdateUser}>Update User</Modal>
         )}
