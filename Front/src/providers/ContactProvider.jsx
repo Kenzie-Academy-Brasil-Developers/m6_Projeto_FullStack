@@ -1,4 +1,4 @@
-import { createContext, useState } from "react";
+import { createContext, useEffect, useState } from "react";
 import { api } from "../services/api";
 import { toast } from "react-toastify";
 
@@ -8,10 +8,12 @@ export const ContactProvider = ({ children }) => {
   const [contactList, setContactList] = useState([]);
   const [contactId, setContactId] = useState(null);
 
+  useEffect(() => {}, []);
   const createContact = async (formData) => {
     try {
       const response = await api.post("/contacts", formData);
       setContactList((prevContactList) => [...prevContactList, response.data]);
+      window.location.reload();
       toast.success("Contato Cadastrado", { autoClose: 500 });
     } catch (error) {
       toast.error("Contato já cadastrado ou pertence a outro usuário", {
@@ -24,7 +26,7 @@ export const ContactProvider = ({ children }) => {
   const deleteContact = async (id) => {
     try {
       await api.delete(`contacts/${id}`);
-      console.log(`Contact with ID ${id} deleted successfully`);
+
       setContactList((prevContactList) =>
         prevContactList.filter((contact) => contact.id !== id)
       );
@@ -45,7 +47,6 @@ export const ContactProvider = ({ children }) => {
       );
       setContactId(id);
       toast.success("Contato Atualizado", { autoClose: 500 });
-      console.log(`Contact with ID ${id} updated successfully`);
     } catch (error) {
       toast.error("Erro ao atualizar contato", { autoClose: 500 });
       console.error("Erro ao atualizar contato:", error);

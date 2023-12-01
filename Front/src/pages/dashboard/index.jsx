@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import { GrDocumentUpdate } from "react-icons/gr";
 import { MdDeleteForever } from "react-icons/md";
 import { IoMdPersonAdd } from "react-icons/io";
-import { useAuth } from "../../../hooks/useAuth";
 import {
   DashboardHeader,
   User,
@@ -14,10 +13,11 @@ import {
   DeleteUserButton,
   ButtonContainerUser,
 } from "./styles";
-import { api } from "../../../services/api";
-import { useContact } from "../../../hooks/useContact";
-import { Modal } from "../../../components/Modal";
-import { ModalAddContact } from "../../../components/ModalAddContact";
+import { api } from "../../services/api";
+import { useContact } from "../../hooks/useContact";
+import { useAuth } from "../../hooks/useAuth";
+import { ModalAddContact } from "../../components/ModalAddContact";
+import { Modal } from "../../components/Modal";
 import { Contacts } from "./Contacts";
 
 export const Dashboard = () => {
@@ -42,7 +42,6 @@ export const Dashboard = () => {
   const handleDelete = async (userId) => {
     //confirm("Deseja excluir o usuário e todos os contatos");
     await userDelete(userId);
-    console.log("User deleted");
   };
 
   return (
