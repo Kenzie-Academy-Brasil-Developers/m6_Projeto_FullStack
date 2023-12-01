@@ -22,7 +22,7 @@ import { Contacts } from "./Contacts";
 
 export const Dashboard = () => {
   const { userLogout, user, userDelete } = useAuth();
-  const { setContactList, deleteContact } = useContact();
+  const { setContactList, deleteContact, contactList } = useContact();
   const [isOpenModalAddContact, setIsOpenModalAddContact] = useState(false);
   const [isOpenModalUpdateUser, setIsOpenModalUpdateUser] = useState(false);
 
@@ -40,6 +40,7 @@ export const Dashboard = () => {
   }, []);
 
   const handleDelete = async (userId) => {
+    //confirm("Deseja excluir o usuário e todos os contatos");
     await userDelete(userId);
     console.log("User deleted");
   };

@@ -8,6 +8,8 @@ import light from "../src/styles/themes/light";
 import dark from "../src/styles/themes/dark";
 import { useState } from "react";
 import { ContactProvider } from "./providers/ContactProvider.jsx";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 export const App = () => {
   const [theme, setTheme] = useState(light);
@@ -27,6 +29,7 @@ export const App = () => {
           }}
         >
           <ResetStyles />
+          <ToastContainer />
           <Header onChangeTheme={onChangeTheme} theme={theme} />
           <AuthProvider>
             <ContactProvider>

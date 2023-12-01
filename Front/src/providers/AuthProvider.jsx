@@ -1,6 +1,7 @@
 import { createContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { api } from "../services/api";
+import { toast } from "react-toastify";
 
 export const AuthContext = createContext({});
 
@@ -45,8 +46,10 @@ export const AuthProvider = ({ children }) => {
       setUser(loggedUser);
 
       navigate("dashboard");
+      toast.success("Usuário Aceito", { autoClose: 500 });
     } catch (error) {
       console.log(error);
+      toast.error("Email ou senha inválidos", { autoClose: 500 });
     }
   };
 
@@ -54,7 +57,9 @@ export const AuthProvider = ({ children }) => {
     try {
       await api.post("/users", formData);
       navigate("");
+      toast.success("Usuário Cadastrado", { autoClose: 500 });
     } catch (error) {
+      toast.error("Email ou Telefone já Existente", { autoClose: 500 });
       console.log(error);
     }
   };
@@ -62,6 +67,7 @@ export const AuthProvider = ({ children }) => {
   const userLogout = () => {
     localStorage.removeItem("@UserTOKEN");
     localStorage.removeItem("@USER");
+    toast.success("Saindo do Sistema", { autoClose: 500 });
     navigate("");
   };
 
@@ -82,9 +88,10 @@ export const AuthProvider = ({ children }) => {
 
       localStorage.removeItem("@UserTOKEN");
       localStorage.removeItem("@USER");
-
+      toast.success("Usuário Deletado do Sistema", { autoClose: 500 });
       navigate("");
     } catch (error) {
+      toast.error("Algo deu Errado", { autoClose: 500 });
       console.error("Erro ao excluir o usuário:", error);
     }
   };

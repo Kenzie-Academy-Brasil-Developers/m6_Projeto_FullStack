@@ -25,8 +25,6 @@ export const Register = () => {
 
   const submitRegister = (formData) => {
     userRegister(formData);
-    console.log(formData);
-    console.log("Errors:", errors);
     reset();
   };
 

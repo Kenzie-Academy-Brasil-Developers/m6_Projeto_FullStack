@@ -9,6 +9,7 @@ export const StyledControllerLogin = styled.main`
 
   h1 {
     font-size: 1.5rem;
+    margin-bottom: 2px;
   }
 
   div {

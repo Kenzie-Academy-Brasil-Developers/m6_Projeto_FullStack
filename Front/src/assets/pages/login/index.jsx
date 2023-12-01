@@ -33,7 +33,6 @@ export const Login = () => {
           <Form onSubmit={handleSubmit(submitLogin)}>
             <Input
               type="email"
-              label="Email"
               id="email"
               placeholder="Digite seu e-mail"
               {...register("email")}
@@ -42,7 +41,6 @@ export const Login = () => {
 
             <Input
               type="password"
-              label="Senha"
               id="password"
               placeholder="Digite a senha"
               {...register("password")}
