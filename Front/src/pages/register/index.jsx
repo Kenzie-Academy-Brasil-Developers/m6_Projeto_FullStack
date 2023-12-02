@@ -10,6 +10,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { registerSchema } from "./validator";
 import { Form } from "../../fragments/Form";
 import { Input } from "../../fragments/Input";
+import { useAuth } from "../../hooks/useAuth";
 
 export const Register = () => {
   const {

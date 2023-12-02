@@ -5,11 +5,11 @@ export const StyledControllerLogin = styled.main`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  margin-top: 2%;
+  margin-top: 10%;
 
   h1 {
     font-size: 1.5rem;
-    margin-bottom: 2px;
+    margin-bottom: 10px;
   }
 
   div {
@@ -17,7 +17,7 @@ export const StyledControllerLogin = styled.main`
       margin-bottom: 2px;
       display: flex;
       flex-direction: column;
-      gap: 5px;
+      gap: 15px;
 
       input {
         display: flex;

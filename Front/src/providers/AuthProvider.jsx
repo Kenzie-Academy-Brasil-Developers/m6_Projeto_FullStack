@@ -8,6 +8,7 @@ export const AuthContext = createContext({});
 export const AuthProvider = ({ children }) => {
   const [loading, setLoading] = useState(true);
   const [user, setUser] = useState(null);
+  const [userId, setUserId] = useState(null);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -96,9 +97,47 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
+  // const updateUser = async (id, updatedData) => {
+  //   try {
+  //     const response = await api.patch(`users/${id}`, updatedData);
+  //     setUserId(id); // Assumindo que response.data é o objeto de usuário atualizado
+  //     toast.success("Usuário Atualizado", { autoClose: 500 });
+  //   } catch (error) {
+  //     toast.error("Erro ao atualizar usuário", { autoClose: 500 });
+  //     console.error("Erro ao atualizar usuário:", error);
+  //   }
+  // };
+
+  const updateUser = async (id, updatedData) => {
+    try {
+      const response = await api.patch(`users/${id}`, updatedData);
+      setUser((prevUsers) =>
+        prevUsers.map((user) => (user.id === id ? response.data : user))
+      );
+      toast.success("Usuário Atualizado", { autoClose: 500 });
+    } catch (error) {
+      toast.error("Erro ao atualizar usuário", { autoClose: 500 });
+      console.error("Erro ao atualizar usuário:", error);
+    }
+  };
+
+  const getUserById = async (id) => {
+    const response = await api.get(`users/${id}`);
+    return response.data;
+  };
+
   return (
     <AuthContext.Provider
-      value={{ userLogin, loading, userLogout, userRegister, user, userDelete }}
+      value={{
+        userLogin,
+        loading,
+        userLogout,
+        userRegister,
+        user,
+        userDelete,
+        getUserById,
+        updateUser,
+      }}
     >
       {children}
     </AuthContext.Provider>

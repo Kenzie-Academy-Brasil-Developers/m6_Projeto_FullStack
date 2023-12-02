@@ -1,16 +1,16 @@
 import { useForm } from "react-hook-form";
-import { useEffect } from "react";
-import { Modal } from "../Modal";
-import { Input } from "../../fragments/Input";
-import { Form } from "../../fragments/Form";
-import { ModalContainerAddContact } from "../ModalAddContact/styles";
-import { useContact } from "../../hooks/useContact";
-import { updateSchema } from "./validator";
-import { zodResolver } from "@hookform/resolvers/zod";
 import { GrDocumentUpdate } from "react-icons/gr";
+import { Modal } from "../Modal";
+import { useAuth } from "../../hooks/useAuth";
+import { useEffect } from "react";
+import { updateUserSchema } from "./validator";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { Form } from "../../fragments/Form";
+import { Input } from "../../fragments/Input";
+import { ModalContainerAddContact } from "../ModalAddContact/styles";
 import { toast } from "react-toastify";
 
-export const ModalUpdateContact = ({ toggleModal, contactId }) => {
+export const ModalUpdateUser = ({ toggleModal, userId }) => {
   const {
     handleSubmit,
     register,
@@ -18,27 +18,28 @@ export const ModalUpdateContact = ({ toggleModal, contactId }) => {
     setValue,
     formState: { errors },
   } = useForm({
-    resolver: zodResolver(updateSchema),
+    resolver: zodResolver(updateUserSchema),
   });
-  const { updateContact, getContactById } = useContact();
+  const { getUserById, updateUser } = useAuth();
 
   useEffect(() => {
-    const getContact = async () => {
+    const getUser = async () => {
       try {
-        const contactData = await getContactById(contactId);
-        setValue("full_name", contactData.full_name);
-        setValue("email", contactData.email);
-        setValue("phone", contactData.phone);
+        const userData = await getUserById(userId);
+        setValue("full_name", userData.full_name);
+        setValue("email", userData.email);
+        setValue("password", userData.password);
+        setValue("phone", userData.phone);
       } catch (error) {
         toast.error("Erro ao atualizar contato", { autoClose: 500 });
         console.error("Erro ao buscar os dados do contato:", error);
       }
     };
-    getContact();
-  }, [contactId, setValue]);
+    getUser();
+  }, [userId, setValue]);
 
   const submit = async (formData) => {
-    await updateContact(contactId, formData);
+    await updateUser(userId, formData);
     reset();
     toggleModal();
   };
@@ -52,6 +53,7 @@ export const ModalUpdateContact = ({ toggleModal, contactId }) => {
         <Form onSubmit={handleSubmit(submit)}>
           <Input
             type="text"
+            //label="Nome Completo"
             id="name"
             placeholder="Digite seu nome completo"
             {...register("full_name")}
@@ -60,6 +62,7 @@ export const ModalUpdateContact = ({ toggleModal, contactId }) => {
 
           <Input
             type="email"
+            //label="E-mail"
             id="email"
             placeholder="Digite seu e-mail"
             {...register("email")}
@@ -67,7 +70,26 @@ export const ModalUpdateContact = ({ toggleModal, contactId }) => {
           />
 
           <Input
+            type="password"
+            //label="Senha"
+            id="password"
+            placeholder="Digite a senha"
+            {...register("password")}
+            error={errors.password}
+          />
+
+          <Input
+            type="password"
+            //label="Confirme Senha"
+            id="confirmPassword"
+            placeholder="Confirme a senha"
+            {...register("confirm")}
+            error={errors.confirmPassword}
+          />
+
+          <Input
             type="text"
+            //label="Telefone"
             id="phone"
             placeholder="Digite o numero do telefone"
             {...register("phone")}
