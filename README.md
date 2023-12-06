@@ -14,7 +14,7 @@ Para instalar este projeto, siga estas etapas:
 
 3.Instale as dependências com o comando npm install.
 
-4.Crie um arquivo .env com as seguintes variáveis de ambiente:
+4.Crie um arquivo .env com as seguintes variáveis de ambiente (use o env.example):
 
     PORT: A porta na qual o servidor back-end será executado.
     DB_HOST: O host do banco de dados.
@@ -34,6 +34,10 @@ Para instalar este projeto, siga estas etapas:
 9. Execute o front-end com o comando npm run dev.
 
 Recursos:
+
+Criação de usuarios
+Edição de usuarios
+Exclusão de usuarios
 
 Criação de contatos
 Edição de contatos
