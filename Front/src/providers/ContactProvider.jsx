@@ -8,6 +8,7 @@ export const ContactProvider = ({ children }) => {
   const [contactList, setContactList] = useState([]);
   const [contactId, setContactId] = useState(null);
 
+  // Função para buscar a lista de contatos
   const fetchContacts = async () => {
     try {
       const response = await api.get("/contacts");
@@ -17,6 +18,7 @@ export const ContactProvider = ({ children }) => {
     }
   };
 
+  // Carregar a lista de contatos quando o componente é montado
   useEffect(() => {
     fetchContacts();
   }, []);
@@ -38,7 +40,8 @@ export const ContactProvider = ({ children }) => {
   const deleteContact = async (id) => {
     try {
       await api.delete(`contacts/${id}`);
-
+      // Atualizar a lista de contatos após deletar um contato
+      fetchContacts();
       toast.success("Contato Deletado", { autoClose: 500 });
     } catch (error) {
       console.error("Erro ao deletar contato:", error);
@@ -49,7 +52,8 @@ export const ContactProvider = ({ children }) => {
   const updateContact = async (id, updatedData) => {
     try {
       const response = await api.patch(`contacts/${id}`, updatedData);
-
+      // Atualizar a lista de contatos após atualizar um contato
+      fetchContacts();
       setContactId(id);
       toast.success("Contato Atualizado", { autoClose: 500 });
     } catch (error) {
