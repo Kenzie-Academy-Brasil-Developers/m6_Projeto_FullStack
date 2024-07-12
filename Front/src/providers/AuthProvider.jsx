@@ -45,7 +45,6 @@ export const AuthProvider = ({ children }) => {
       localStorage.setItem("@UserTOKEN", token);
       localStorage.setItem("@USER", JSON.stringify(loggedUser));
       setUser(loggedUser);
-
       navigate("dashboard");
       toast.success("Usuário Aceito", { autoClose: 500 });
     } catch (error) {

@@ -8,12 +8,24 @@ export const ContactProvider = ({ children }) => {
   const [contactList, setContactList] = useState([]);
   const [contactId, setContactId] = useState(null);
 
-  useEffect(() => {}, []);
+  const fetchContacts = async () => {
+    try {
+      const response = await api.get("/contacts");
+      setContactList(response.data);
+    } catch (error) {
+      console.error("Erro ao buscar contatos:", error);
+    }
+  };
+
+  useEffect(() => {
+    fetchContacts();
+  }, []);
+
   const createContact = async (formData) => {
     try {
       const response = await api.post("/contacts", formData);
-      setContactList((prevContactList) => [...prevContactList, response.data]);
-      window.location.reload();
+      // Atualizar a lista de contatos após criar um novo
+      fetchContacts();
       toast.success("Contato Cadastrado", { autoClose: 500 });
     } catch (error) {
       toast.error("Contato já cadastrado ou pertence a outro usuário", {
@@ -27,12 +39,9 @@ export const ContactProvider = ({ children }) => {
     try {
       await api.delete(`contacts/${id}`);
 
-      setContactList((prevContactList) =>
-        prevContactList.filter((contact) => contact.id !== id)
-      );
       toast.success("Contato Deletado", { autoClose: 500 });
     } catch (error) {
-      console.error("Error deleting contact:", error);
+      console.error("Erro ao deletar contato:", error);
       toast.error("Erro ao deletar contato", { autoClose: 500 });
     }
   };
@@ -40,11 +49,7 @@ export const ContactProvider = ({ children }) => {
   const updateContact = async (id, updatedData) => {
     try {
       const response = await api.patch(`contacts/${id}`, updatedData);
-      setContactList((prevContactList) =>
-        prevContactList.map((contact) =>
-          contact.id === id ? response.data : contact
-        )
-      );
+
       setContactId(id);
       toast.success("Contato Atualizado", { autoClose: 500 });
     } catch (error) {

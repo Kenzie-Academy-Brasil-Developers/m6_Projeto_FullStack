@@ -21,7 +21,7 @@ export const ModalUpdateUser = ({ toggleModal }) => {
   } = useForm({
     resolver: zodResolver(updateUserSchema),
   });
-  const { user } = useAuth();
+  const { user, setUser } = useAuth();
   const [updatedUser, setUpdatedUser] = useState(user);
 
   useEffect(() => {
@@ -39,9 +39,10 @@ export const ModalUpdateUser = ({ toggleModal }) => {
     const res = await api.patch(`/users/${userLocalStorageData.id}`, data);
     setUpdatedUser(res.data);
     localStorage.setItem("@USER", JSON.stringify(res.data));
-    window.location.reload();
+    // window.location.reload();
+    setUser(res.data);
     toast.success("Perfil atualizado com sucesso");
-    console.log(res);
+    //console.log(res);
   };
 
   const onSubmit = async (data) => {

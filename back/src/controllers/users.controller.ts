@@ -17,7 +17,6 @@ const createUsersController = async (
 
 const readAllUsersController = async (req: Request, res: Response) => {
   const users = await readAllUsersServices();
-
   return res.json(users);
 };
 

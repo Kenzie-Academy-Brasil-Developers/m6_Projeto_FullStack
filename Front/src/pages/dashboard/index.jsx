@@ -34,7 +34,7 @@ const options = {
 const getTargetElement = () => document.getElementById("content-id");
 
 export const Dashboard = () => {
-  const { userLogout, user, userDelete } = useAuth();
+  const { userLogout, user, userDelete, setUser } = useAuth();
   const { setContactList, deleteContact, contactList } = useContact();
   const [isOpenModalAddContact, setIsOpenModalAddContact] = useState(false);
   const [isOpenModalUpdateUser, setIsOpenModalUpdateUser] = useState(false);
