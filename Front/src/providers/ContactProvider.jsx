@@ -28,6 +28,7 @@ export const ContactProvider = ({ children }) => {
       const response = await api.post("/contacts", formData);
       // Atualizar a lista de contatos após criar um novo
       fetchContacts();
+      // window.location.reload();
       toast.success("Contato Cadastrado", { autoClose: 500 });
     } catch (error) {
       toast.error("Contato já cadastrado ou pertence a outro usuário", {
